@@ -164,6 +164,26 @@ const products = [
 
 const Index = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [sortBy, setSortBy] = useState("featured");
+  const [itemsPerPage, setItemsPerPage] = useState("50");
+
+  // Sort products based on selected option
+  const sortedProducts = [...products].sort((a, b) => {
+    switch (sortBy) {
+      case "price-low":
+        return a.price - b.price;
+      case "price-high":
+        return b.price - a.price;
+      case "newest":
+        return b.id - a.id;
+      case "featured":
+      default:
+        return 0;
+    }
+  });
+
+  // Limit products based on items per page
+  const displayedProducts = sortedProducts.slice(0, parseInt(itemsPerPage));
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -206,7 +226,7 @@ const Index = () => {
                 </Button>
               </div>
               
-              <Select defaultValue="50">
+              <Select value={itemsPerPage} onValueChange={setItemsPerPage}>
                 <SelectTrigger className="w-32">
                   <SelectValue placeholder="Show" />
                 </SelectTrigger>
@@ -217,7 +237,7 @@ const Index = () => {
                 </SelectContent>
               </Select>
 
-              <Select defaultValue="featured">
+              <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-48">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
@@ -238,7 +258,7 @@ const Index = () => {
 
           {/* Products Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
+            {displayedProducts.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
           </div>
