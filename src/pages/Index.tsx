@@ -19,7 +19,7 @@ import product4 from "@/assets/product-4.jpg";
 import product5 from "@/assets/product-5.jpg";
 import product6 from "@/assets/product-6.jpg";
 
-const products = [
+export const products = [
   {
     id: 1,
     image: product1,

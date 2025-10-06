@@ -1,9 +1,10 @@
 import { ShoppingCart, Heart, Eye, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
+import { useCompare } from "@/contexts/CompareContext";
 
 interface ProductCardProps {
+  id: number;
   image: string;
   title: string;
   category: string;
@@ -16,6 +17,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({
+  id,
   image,
   title,
   category,
@@ -26,13 +28,20 @@ const ProductCard = ({
   badge,
   badgeColor = "bg-primary",
 }: ProductCardProps) => {
-  const { toast } = useToast();
+  const { addToCompare } = useCompare();
 
   const handleAddToCompare = () => {
-    toast({
-      title: "Added to compare list",
-      description: `${title} - $${price.toFixed(2)}`,
-      duration: 3000,
+    addToCompare({
+      id,
+      image,
+      title,
+      category,
+      price,
+      originalPrice,
+      rating,
+      reviews,
+      badge,
+      badgeColor,
     });
   };
   return (

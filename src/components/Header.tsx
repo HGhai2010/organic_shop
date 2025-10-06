@@ -1,6 +1,8 @@
 import { Search, ShoppingCart, User, Heart, BarChart3, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useCompare } from "@/contexts/CompareContext";
+import { Link } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -10,6 +12,8 @@ import {
 } from "@/components/ui/select";
 
 const Header = () => {
+  const { compareList } = useCompare();
+  
   return (
     <header className="w-full bg-background">
       {/* Top Bar */}
@@ -74,11 +78,15 @@ const Header = () => {
 
             {/* Right Icons */}
             <div className="flex items-center gap-4 sm:gap-6 text-sm">
-              <a href="#" className="hidden md:flex items-center gap-2 text-foreground hover:text-primary transition-colors relative">
+              <Link to="/compare" className="hidden md:flex items-center gap-2 text-foreground hover:text-primary transition-colors relative">
                 <BarChart3 className="h-5 w-5" />
                 <span className="hidden lg:inline">Compare</span>
-                <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
-              </a>
+                {compareList.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {compareList.length}
+                  </span>
+                )}
+              </Link>
               <a href="#" className="hidden sm:flex items-center gap-2 text-foreground hover:text-primary transition-colors relative">
                 <Heart className="h-5 w-5" />
                 <span className="hidden lg:inline">Wishlist</span>
