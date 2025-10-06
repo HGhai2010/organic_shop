@@ -182,7 +182,7 @@ const Index = () => {
 
           {/* Page Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Shop Grid – Right Sidebar</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Category</h1>
             <p className="text-muted-foreground">We have <span className="text-primary font-semibold">29</span> products available for you</p>
           </div>
 
