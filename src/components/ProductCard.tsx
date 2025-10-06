@@ -1,6 +1,7 @@
 import { ShoppingCart, Heart, Eye, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProductCardProps {
   image: string;
@@ -25,6 +26,15 @@ const ProductCard = ({
   badge,
   badgeColor = "bg-primary",
 }: ProductCardProps) => {
+  const { toast } = useToast();
+
+  const handleAddToCompare = () => {
+    toast({
+      title: "Added to compare list",
+      description: `${title} - $${price.toFixed(2)}`,
+      duration: 3000,
+    });
+  };
   return (
     <div className="group bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300">
       <div className="relative overflow-hidden bg-secondary/20">
@@ -42,7 +52,12 @@ const ProductCard = ({
           <Button size="icon" variant="secondary" className="rounded-full h-10 w-10 shadow-md">
             <Heart className="h-4 w-4" />
           </Button>
-          <Button size="icon" variant="secondary" className="rounded-full h-10 w-10 shadow-md">
+          <Button 
+            size="icon" 
+            variant="secondary" 
+            className="rounded-full h-10 w-10 shadow-md"
+            onClick={handleAddToCompare}
+          >
             <Eye className="h-4 w-4" />
           </Button>
         </div>
